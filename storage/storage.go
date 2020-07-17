@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"errors"
 	"exponet/expo"
-	"fmt"
 
 	//import mysql driver
 	_ "github.com/go-sql-driver/mysql"
@@ -27,7 +26,6 @@ func NewStorage() (*Storage, error) {
 
 //Insert store data
 func (st *Storage) Insert(exhs []expo.Expo) error {
-	fmt.Println(exhs)
 	var (
 		err  error
 		stmt *sql.Stmt
