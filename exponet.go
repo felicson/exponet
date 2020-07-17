@@ -34,7 +34,7 @@ func GetExhibitions() ([]expo.Expo, error) {
 		return nil, err
 	}
 
-	for _, l := range links[0:1] {
+	for _, l := range links {
 		var ex expo.Expo
 		if ex, err = parseExpo(l); err != nil {
 			continue
