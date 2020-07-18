@@ -16,7 +16,7 @@ type Storage struct {
 
 //NewStorage create new storage instance
 func NewStorage() (*Storage, error) {
-	db, err := sql.Open("mysql", "myprom:pass@tcp(localhost)/dbname")
+	db, err := sql.Open("mysql", "user:pass@tcp(localhost)/dbname")
 	if err != nil {
 		return &Storage{}, err
 	}
