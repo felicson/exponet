@@ -20,7 +20,10 @@ const (
 	indexURL = "https://www.exponet.ru/exhibitions/countries/rus/topics/promexpo/dates/future/p1l10000.ru.html"
 )
 
-var clearDateRg = regexp.MustCompile("[^\\d|\\.]")
+var (
+	clearDateRg  = regexp.MustCompile("[^\\d|\\.]")
+	removeTagsRg = regexp.MustCompile("</?[div|a].*?>")
+)
 
 //GetExhibitions main extract func
 func GetExhibitions() ([]expo.Expo, error) {
@@ -99,6 +102,7 @@ func parseExpo(url string) (expo.Expo, error) {
 	html := htmlquery.OutputHTML(desc, false)
 	html = strings.ReplaceAll(html, "<noindex>", "")
 	html = strings.ReplaceAll(html, "</noindex>", "")
+	html = removeTagsRg.ReplaceAllString(html, "")
 
 	dateStart, err := parseTime(datesA[0])
 	if err != nil {
