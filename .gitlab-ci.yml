@@ -26,4 +26,4 @@ run_binary:
     script:
         - echo $(pwd)
         - ls -la
-        - cp ./exponet /exponet
+        - cp ./exponet ~/exponet
