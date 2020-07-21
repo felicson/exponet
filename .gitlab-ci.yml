@@ -21,7 +21,7 @@ run_binary:
     stage: test
     tags:
         - local-runner
-    dependencies
+    dependencies:
         - echo_env
     script:
         - echo $(pwd)
