@@ -3,5 +3,7 @@ stages:
 
 echo_env:
     stage: test
+    tags:
+        - local-runner
     script:
         - echo $(pwd)
