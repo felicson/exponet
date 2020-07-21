@@ -21,6 +21,8 @@ run_binary:
     stage: test
     tags:
         - local-runner
+    dependencies
+        - echo_env
     script:
         - echo $(pwd)
         - ls -la
