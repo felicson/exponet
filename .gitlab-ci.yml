@@ -21,9 +21,9 @@ echo_env:
 run_binary:
     stage: run
     tags:
-        - local-runner
+        - local-shell-runner
     dependencies: ["echo_env"]
     script:
         - echo $(pwd)
         - ls -la
-        - ./exponet
+        - cp ./exponet /exponet
