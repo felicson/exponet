@@ -9,6 +9,10 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+var (
+	dsn = "user:pass@tcp(localhost)/dbname"
+)
+
 //Storage main struct
 type Storage struct {
 	db *sql.DB
@@ -16,7 +20,7 @@ type Storage struct {
 
 //NewStorage create new storage instance
 func NewStorage() (*Storage, error) {
-	db, err := sql.Open("mysql", "user:pass@tcp(localhost)/dbname")
+	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return &Storage{}, err
 	}

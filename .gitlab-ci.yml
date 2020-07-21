@@ -10,7 +10,7 @@ echo_env:
     script:
         - echo $(pwd)
         - echo $TEST_VAR
-        - go build -o exponet cmd/main.go
+        - go build -o exponet -ldflags="-X exponet/storage.dsn='${APP_DSN}'" cmd/main.go
         - chmod 700 ./exponet
     artifacts:
         paths:
