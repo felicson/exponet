@@ -22,7 +22,7 @@ run_binary:
     tags:
         - local-runner
     dependencies:
-        - echo_env
+        - test:echo_env
     script:
         - echo $(pwd)
         - ls -la
