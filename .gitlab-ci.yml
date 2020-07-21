@@ -8,10 +8,16 @@ echo_env:
         - local-runner
     script:
         - echo $(pwd)
+        - echo $TEST_VAR
         - go build -o exponet cmd/main.go
+        - chmod 700 ./exponet
     artifacts:
         paths:
             - ./exponet
         when: on_success
         expire_in: 1 day
-        
+
+run_binary:
+    stage: test
+    script:
+        - ./exponet
