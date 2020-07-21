@@ -10,11 +10,6 @@ echo_env:
     script:
         - go build -o exponet -ldflags="-X exponet/storage.dsn='${APP_DSN}'" cmd/main.go
         - chmod 700 ./exponet
-    artifacts:
-        paths:
-            - ./exponet
-        when: on_success
-        expire_in: 1 day
 
 run_binary:
     stage: run
