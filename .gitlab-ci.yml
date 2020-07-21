@@ -19,5 +19,7 @@ echo_env:
 
 run_binary:
     stage: test
+    tags:
+        - local-runner
     script:
         - ./exponet
