@@ -1,0 +1,7 @@
+stages:
+    - test
+
+echo_env:
+    stage: test
+    script:
+        - echo $(pwd)
