@@ -3,7 +3,15 @@ stages:
 
 echo_env:
     stage: test
+    image: 1.14-alpine
     tags:
         - local-runner
     script:
         - echo $(pwd)
+        - go build -o exponet cmd/main.go
+    artifacts:
+        paths:
+            - ./exponet
+        when: on_success
+        expire_in: 1 day
+        
