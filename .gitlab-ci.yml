@@ -3,7 +3,7 @@ stages:
 
 echo_env:
     stage: test
-    image: 1.14-alpine
+    image: golang:1.14-alpine
     tags:
         - local-runner
     script:
