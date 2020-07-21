@@ -22,4 +22,6 @@ run_binary:
     tags:
         - local-runner
     script:
+        - echo $(pwd)
+        - ls -la
         - ./exponet
