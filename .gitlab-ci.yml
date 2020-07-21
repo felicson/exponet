@@ -8,8 +8,6 @@ echo_env:
     tags:
         - local-runner
     script:
-        - echo $(pwd)
-        - echo $TEST_VAR
         - go build -o exponet -ldflags="-X exponet/storage.dsn='${APP_DSN}'" cmd/main.go
         - chmod 700 ./exponet
     artifacts:
@@ -26,4 +24,4 @@ run_binary:
     script:
         - echo $(pwd)
         - ls -la
-        - cp ./exponet ~/exponet
+        - cp ./exponet ~/${CI_PROJECT_ID}
