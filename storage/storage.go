@@ -18,7 +18,7 @@ type Storage struct {
 	db *sql.DB
 }
 
-//NewStorage create new storage instance!
+//NewStorage create new storage instance
 func NewStorage() (*Storage, error) {
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
