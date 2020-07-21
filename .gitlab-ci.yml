@@ -1,5 +1,6 @@
 stages:
     - test
+    - run
 
 echo_env:
     stage: test
@@ -18,11 +19,10 @@ echo_env:
         expire_in: 1 day
 
 run_binary:
-    stage: test
+    stage: run
     tags:
         - local-runner
-    dependencies:
-        - test:echo_env
+    dependencies: ["echo_env"]
     script:
         - echo $(pwd)
         - ls -la
