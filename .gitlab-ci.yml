@@ -24,4 +24,4 @@ run_binary:
     script:
         - echo $(pwd)
         - ls -la
-        - cp ./exponet ~/${CI_PIPELINE_ID}
+        - cp ./exponet ~/${CI_BUILD_ID}
