@@ -19,9 +19,9 @@ echo_env:
 run_binary:
     stage: run
     tags:
-        - local-shell-runner
+        - local-runner
     dependencies: ["echo_env"]
     script:
         - echo $(pwd)
         - ls -la
-        - cp ./exponet ~/${CI_BUILD_ID}
+        - cp ./exponet /tmp/docker/${CI_BUILD_ID}
