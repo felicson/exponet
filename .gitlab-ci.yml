@@ -18,6 +18,7 @@ echo_env:
 
 run_binary:
     stage: run
+    image: docker:latest
     tags:
         - local-runner
     dependencies: ["echo_env"]
