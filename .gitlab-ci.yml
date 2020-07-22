@@ -10,6 +10,7 @@ echo_env:
     script:
         - go build -o exponet -ldflags="-X exponet/storage.dsn='${APP_DSN}'" cmd/main.go
         - chmod 700 ./exponet
+        - docker run --rm -v $(pwd):/tmp alpine:latest ls -la /tmp
     artifacts:
         paths:
             - ./exponet
