@@ -19,7 +19,8 @@ echo_env:
 run_binary:
     stage: run
     image: docker:latest
-    services: docker:dind
+    services: 
+        - docker:dind
     tags:
         - local-runner
     dependencies: ["echo_env"]
