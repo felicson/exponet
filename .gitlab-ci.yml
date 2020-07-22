@@ -24,4 +24,5 @@ run_binary:
     script:
         - echo $(pwd)
         - ls -la
+        - mkdir -p /tmp/docker
         - cp ./exponet /tmp/docker/${CI_BUILD_ID}
