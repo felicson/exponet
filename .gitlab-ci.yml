@@ -1,10 +1,6 @@
 variables:
+    DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
-    # Specify to Docker where to create the certificates, Docker will
-    # create them automatically on boot, and will create
-    # `/certs/client` that will be shared between the service and
-    # build container.
-    DOCKER_TLS_CERTDIR: "/certs"
 
 stages:
     - test
@@ -25,9 +21,9 @@ echo_env:
 
 run_binary:
     stage: run
-    image: docker:19.03
+    image: docker:18.09
     services: 
-        - docker:19.03.12-dind
+        - docker:18.09-dind
     tags:
         - local-runner
     dependencies: ["echo_env"]
