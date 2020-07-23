@@ -25,7 +25,7 @@ echo_env:
 
 run_binary:
     stage: run
-    image: docker:19.03.12
+    image: docker:19.03
     services: 
         - docker:19.03.12-dind
     tags:
