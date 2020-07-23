@@ -1,6 +1,6 @@
 variables:
-    DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
+    DOCKER_CERT_PATH: /certs/client
 
 stages:
     - test
@@ -21,9 +21,9 @@ echo_env:
 
 run_binary:
     stage: run
-    image: docker:18.09
-    services: 
-        - docker:18.09-dind
+    image: docker:18.09-dind
+    #services: 
+    #    - docker:18.09-dind
     tags:
         - local-runner
     dependencies: ["echo_env"]
