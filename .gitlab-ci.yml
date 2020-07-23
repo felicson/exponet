@@ -20,18 +20,11 @@ run_binary:
     image: docker:19.03
     services: 
         - docker:19.03-dind
-        - golang:1.14-alpine
     tags:
         - local-runner
     dependencies: ["echo_env"]
-    variables:
-        JOB_CONTAINER_ID: $(docker ps -q -f "label=com.gitlab.gitlab-runner.job.id=${CI_JOB_ID}")
     script:
-        #- docker run --rm alpine:latest echo "ECHO ${CI_BUILD_ID}" 
         - echo $CI_JOB_ID
-        - echo $JOB_CONTAINER_ID
-        #- docker run --rm --volumes-from $(docker ps -q -f "label=com.gitlab.gitlab-runner.job.id=${CI_JOB_ID}"):ro --workdir /builds/$CI_PROJECT_PATH alpine:latest ls -la .
-        - docker run --rm -v $(pwd):/tmp alpine:latest go build cmd/main.go
-        - echo $(pwd)
+        - docker run --rm -v $(pwd):/tmp alpine:latest ls -la /tmp
         - mkdir -p /tmp/docker
         - cp ./exponet /tmp/docker/${CI_BUILD_ID}
