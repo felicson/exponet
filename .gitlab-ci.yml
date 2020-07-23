@@ -1,6 +1,6 @@
 variables:
     DOCKER_DRIVER: overlay2
-    DOCKER_CERT_PATH: /certs/client
+    DOCKER_CERT_PATH: ''
 
 stages:
     - test
