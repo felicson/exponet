@@ -17,10 +17,9 @@ echo_env:
 
 run_binary:
     stage: run
-    image: alpine:latest
+    image: docker:19.03
     services: 
         - docker:19.03-dind
-        - docker:19.03
     tags:
         - local-runner
     dependencies: ["echo_env"]
