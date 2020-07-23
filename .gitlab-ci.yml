@@ -1,5 +1,11 @@
 variables:
-    DOCKER_HOST: unix:///var/run/docker.sock
+    DOCKER_DRIVER: overlay2
+    # Specify to Docker where to create the certificates, Docker will
+    # create them automatically on boot, and will create
+    # `/certs/client` that will be shared between the service and
+    # build container.
+    DOCKER_TLS_CERTDIR: "/certs"
+
 stages:
     - test
     - run
