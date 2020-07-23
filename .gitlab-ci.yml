@@ -25,7 +25,9 @@ run_binary:
     dependencies: ["echo_env"]
     script:
         #- docker run --rm alpine:latest echo "ECHO ${CI_BUILD_ID}" 
+        - echo $CI_JOB_ID
         - docker ps -q 
+        - docker ps -q -f "label=com.gitlab.gitlab-runner.job.id=$CI_JOB_ID"
         - docker run --rm -v $(pwd):/tmp alpine:latest ls -la /tmp
         - echo $(pwd)
         - mkdir -p /tmp/docker
