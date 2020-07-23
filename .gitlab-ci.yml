@@ -1,7 +1,3 @@
-variables:
-    #DOCKER_DRIVER: overlay2
-    #DOCKER_TLS_CERTDIR: "/certs"
-
 stages:
     - test
     - run
