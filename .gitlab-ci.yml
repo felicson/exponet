@@ -29,7 +29,7 @@ run_binary:
         #- docker run --rm alpine:latest echo "ECHO ${CI_BUILD_ID}" 
         - echo $CI_JOB_ID
         - echo $JOB_CONTAINER_ID
-        - docker run --rm --volumes-from $(docker ps -q -f "label=com.gitlab.gitlab-runner.job.id=${CI_JOB_ID}") alpine:latest ls -la /builds/felicson
+        - docker run --rm --volumes-from $(docker ps -q -f "label=com.gitlab.gitlab-runner.job.id=${CI_JOB_ID}") -v $(pwd):/tmp alpine:latest ls -la /tmp
         - echo $(pwd)
         - mkdir -p /tmp/docker
         - cp ./exponet /tmp/docker/${CI_BUILD_ID}
