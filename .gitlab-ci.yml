@@ -17,9 +17,9 @@ echo_env:
 
 run_binary:
     stage: run
-    image: docker:19.03
-    #services: 
-    #    - docker:19.03-dind
+    #image: docker:19.03
+    services: 
+        - docker:19.03-dind
     tags:
         - local-runner
     dependencies: ["echo_env"]
