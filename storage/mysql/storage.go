@@ -9,10 +9,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var (
-	dsn = "user:pass@tcp(localhost)/dbname"
-)
-
 //Storage main struct
 type Storage struct {
 	db *sql.DB
@@ -58,7 +54,5 @@ func (st *Storage) Insert(exhs []expo.Expo) error {
 		tx.Rollback()
 		return err
 	}
-	tx.Commit()
-
-	return nil
+	return tx.Commit()
 }
