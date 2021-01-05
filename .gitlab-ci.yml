@@ -1,0 +1,30 @@
+stages:
+    - test
+    - run
+
+echo_env:
+    stage: test
+    image: golang:1.14-alpine
+    tags:
+        - local-runner
+    script:
+        - go build -o exponet -ldflags="-X main.dsn='${APP_DSN}'" cmd/main.go
+    artifacts:
+        paths:
+            - ./exponet
+        when: on_success
+        expire_in: 10 min
+
+run_binary:
+    stage: run
+    image: docker:19.03
+    services: 
+        - docker:19.03-dind
+    tags:
+        - local-runner
+    dependencies: ["echo_env"]
+    script:
+        - echo $CI_JOB_ID
+        - docker run --rm -v $(pwd):/tmp alpine:latest ls -la /tmp
+        - mkdir -p /tmp/docker
+        - cp ./exponet /tmp/docker/${CI_BUILD_ID}

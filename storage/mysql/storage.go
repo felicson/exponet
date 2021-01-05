@@ -9,6 +9,10 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+var (
+	dsn = "user:pass@tcp(localhost)/dbname"
+)
+
 //Storage main struct
 type Storage struct {
 	db *sql.DB
