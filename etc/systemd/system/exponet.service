@@ -1,0 +1,7 @@
+[Unit]
+Description=Weekly fill expos
+After=network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/felicson/bin/exponet

@@ -129,6 +129,7 @@ func getHTML(url string) (rdr io.Reader, err error) {
 	if err != nil {
 		return
 	}
+
 	defer r.Body.Close()
 
 	var b bytes.Buffer
@@ -136,10 +137,7 @@ func getHTML(url string) (rdr io.Reader, err error) {
 		return
 	}
 
-	if rdr, err = charset.NewReader(&b, "windows-1251"); err != nil {
-		return
-	}
-	return
+	return charset.NewReader(&b, "windows-1251")
 }
 
 func parseTime(str string) (time.Time, error) {

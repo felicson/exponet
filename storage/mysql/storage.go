@@ -1,4 +1,4 @@
-package storage
+package mysql
 
 import (
 	"database/sql"
@@ -15,8 +15,8 @@ type Storage struct {
 }
 
 //NewStorage create new storage instance
-func NewStorage() (*Storage, error) {
-	db, err := sql.Open("mysql", "user:pass@tcp(localhost)/dbname")
+func NewStorage(dsn string) (*Storage, error) {
+	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return &Storage{}, err
 	}

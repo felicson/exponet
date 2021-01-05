@@ -3,10 +3,15 @@ package main
 import (
 	"exponet"
 	"exponet/expo"
-	"exponet/storage"
-	"fmt"
-	"os"
+
+	//storage "exponet/storage/mock"
+
+	storage "exponet/storage/mysql"
+	"log"
 )
+
+//define via -X ldflag
+var dsn = ""
 
 func main() {
 	var (
@@ -14,16 +19,14 @@ func main() {
 		err  error
 		exhs []expo.Expo
 	)
-	if stor, err = storage.NewStorage(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+
+	if stor, err = storage.NewStorage(dsn); err != nil {
+		log.Fatal(err)
 	}
 	if exhs, err = exponet.GetExhibitions(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 	if err = exponet.Store(stor, exhs); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 }
