@@ -3,7 +3,8 @@ package mysql
 import (
 	"database/sql"
 	"errors"
-	"exponet/expo"
+
+	"github.com/felicson/exponet/expo"
 
 	//import mysql driver
 	_ "github.com/go-sql-driver/mysql"

@@ -1,11 +1,13 @@
 package main
 
 import (
-	"exponet"
-	"exponet/expo"
+	"github.com/felicson/exponet/expo"
 
-	storage "exponet/storage/mysql"
+	"github.com/felicson/exponet"
+
 	"log"
+
+	storage "github.com/felicson/exponet/storage/mysql"
 )
 
 var (

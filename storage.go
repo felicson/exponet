@@ -1,8 +1,9 @@
 package exponet
 
 import (
-	"exponet/expo"
 	"fmt"
+
+	"github.com/felicson/exponet/expo"
 )
 
 //Storage need for store data somewhere

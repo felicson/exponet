@@ -1,4 +1,4 @@
-module exponet
+module github.com/felicson/exponet
 
 go 1.14
 

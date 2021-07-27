@@ -4,13 +4,14 @@ package exponet
 
 import (
 	"bytes"
-	"exponet/expo"
 	"fmt"
 	"io"
 	"net/http"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/felicson/exponet/expo"
 
 	"github.com/antchfx/htmlquery"
 	"golang.org/x/net/html/charset"

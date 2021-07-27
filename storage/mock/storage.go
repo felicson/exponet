@@ -1,8 +1,9 @@
 package mock
 
 import (
-	"exponet/expo"
 	"fmt"
+
+	"github.com/felicson/exponet/expo"
 )
 
 type mock int
