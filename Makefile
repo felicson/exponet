@@ -1,5 +1,9 @@
+LD_FLAGS=-X 'main.dsn=user:pass@tcp(localhost)/db'
 .PHONY: build
 build:
-	@go build -ldflags="-X 'main.dsn=myprom:pass@tcp(localhost)/myprom'" -o exponet cmd/main.go
+	@go build -ldflags="$(LD_FLAGS)" -o exponet cmd/main.go
 clean:
 	rm exponet
+
+run:
+	@go run -ldflags="$(LD_FLAGS)" cmd/main.go

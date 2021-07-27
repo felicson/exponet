@@ -1,5 +1,5 @@
 [Unit]
-Description=Weekly fill expos for myprom
+Description=Weekly fetch expos from exponet
 
 [Timer]
 OnCalendar=weekly

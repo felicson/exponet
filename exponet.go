@@ -5,6 +5,7 @@ package exponet
 import (
 	"bytes"
 	"exponet/expo"
+	"fmt"
 	"io"
 	"net/http"
 	"regexp"
@@ -16,30 +17,40 @@ import (
 )
 
 const (
-	domain   = "exponet.ru"
-	indexURL = "https://www.exponet.ru/exhibitions/countries/rus/topics/promexpo/dates/future/p1l10000.ru.html"
+	domain = "exponet.ru"
 )
 
 var (
-	clearDateRg  = regexp.MustCompile("[^\\d|\\.]")
+	clearDateRg  = regexp.MustCompile(`[^\d|\.]`)
 	removeTagsRg = regexp.MustCompile("</?[div|a].*?>")
+	rg           = regexp.MustCompile(`by-id/.*index\.ru\.html$`)
 )
 
 //GetExhibitions main extract func
-func GetExhibitions() ([]expo.Expo, error) {
+func GetExhibitions(url string) ([]expo.Expo, error) {
 
 	var (
 		exhs  []expo.Expo
 		links []string
 		err   error
 	)
-	if links, err = getIndex(); err != nil {
+
+	data, err := getHTML(url)
+	if err != nil {
+		return nil, err
+	}
+	rdr := bytes.NewReader(data)
+	if links, err = getIndex(rdr); err != nil {
 		return nil, err
 	}
 
 	for _, l := range links {
-		var ex expo.Expo
-		if ex, err = parseExpo(l); err != nil {
+		data, err := getHTML(l)
+		if err != nil {
+			return nil, err
+		}
+		ex, err := parseExpo(bytes.NewReader(data))
+		if err != nil {
 			continue
 		}
 		if ex.Valid() {
@@ -50,14 +61,9 @@ func GetExhibitions() ([]expo.Expo, error) {
 }
 
 //getIndex parse exhibitions urls
-func getIndex() ([]string, error) {
+func getIndex(rdr io.Reader) ([]string, error) {
 
-	rg := regexp.MustCompile("by-id/.*index\\.ru\\.html$")
-	r, err := getHTML(indexURL)
-	if err != nil {
-		return nil, err
-	}
-	root, err := htmlquery.Parse(r)
+	root, err := htmlquery.Parse(rdr)
 	if err != nil {
 		return nil, err
 	}
@@ -69,20 +75,15 @@ func getIndex() ([]string, error) {
 	for _, i := range sel {
 		val := htmlquery.SelectAttr(i, "href")
 		if rg.MatchString(val) {
-			links = append(links, "https://"+domain+val)
+			links = append(links, fmt.Sprintf("https://%s%s", domain, val))
 		}
 	}
-
 	return links, nil
 }
 
 //parseExpo parse exhibition item
-func parseExpo(url string) (expo.Expo, error) {
+func parseExpo(rdr io.Reader) (expo.Expo, error) {
 
-	rdr, err := getHTML(url)
-	if err != nil {
-		return expo.Expo{}, err
-	}
 	root, err := htmlquery.Parse(rdr)
 	if err != nil {
 		return expo.Expo{}, err
@@ -123,21 +124,25 @@ func parseExpo(url string) (expo.Expo, error) {
 	}, nil
 }
 
-func getHTML(url string) (rdr io.Reader, err error) {
+func getHTML(url string) ([]byte, error) {
 
 	r, err := http.Get(url)
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	defer r.Body.Close()
 
 	var b bytes.Buffer
-	if _, err = b.ReadFrom(r.Body); err != nil {
-		return
-	}
 
-	return charset.NewReader(&b, "windows-1251")
+	rdr, err := charset.NewReader(r.Body, "windows-1251")
+	if err != nil {
+		return nil, err
+	}
+	if _, err := b.ReadFrom(rdr); err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
 
 func parseTime(str string) (time.Time, error) {

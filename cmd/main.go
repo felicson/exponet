@@ -4,14 +4,15 @@ import (
 	"exponet"
 	"exponet/expo"
 
-	//storage "exponet/storage/mock"
-
 	storage "exponet/storage/mysql"
 	"log"
 )
 
-//define via -X ldflag
-var dsn = ""
+var (
+	//define it via -X ldflag
+	dsn      = ""
+	indexURL = "https://www.exponet.ru/exhibitions/countries/rus/topics/promexpo/dates/future/p1l10000.ru.html"
+)
 
 func main() {
 	var (
@@ -23,7 +24,7 @@ func main() {
 	if stor, err = storage.NewStorage(dsn); err != nil {
 		log.Fatal(err)
 	}
-	if exhs, err = exponet.GetExhibitions(); err != nil {
+	if exhs, err = exponet.GetExhibitions(indexURL); err != nil {
 		log.Fatal(err)
 	}
 	if err = exponet.Store(stor, exhs); err != nil {
